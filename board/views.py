@@ -1,21 +1,36 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-
+from django.core.paginator import Paginator
 from .models import Donkey, Health, Aicohol
 # Create your views here.
 
 # 창 띄우기
 def home(request):
     donkeys = Donkey.objects
-    return render(request,'home.html',{'donkeys':donkeys})
+    donkey_list = Donkey.objects.all()
+    donkey_paginator = Paginator(donkey_list,3)
+    donkey_page = request.GET.get('donkey_page')
+    donkey_posts = donkey_paginator.get_page(donkey_page)
+
+    return render(request,'home.html',{'donkeys':donkeys,'donkey_posts':donkey_posts})
 
 def health(request):
     healths = Health.objects
-    return render(request,'health.html',{'healths':healths})
+    health_list = Health.objects.all()
+    health_paginator = Paginator(health_list,3)
+    health_page = request.GET.get('health_page')
+    health_posts = health_paginator.get_page(health_page)
+
+    return render(request,'health.html',{'healths':healths,'health_posts':health_posts})
 
 def aicohol(request):
     aicohols = Aicohol.objects
-    return render(request,'aicohol.html',{'aicohols':aicohols})
+    aicohol_list = Aicohol.objects.all()
+    aicohol_paginator = Paginator(aicohol_list,3)
+    aicohol_page = request.GET.get('aicohol_page')
+    aicohol_posts = aicohol_paginator.get_page(aicohol_page)
+
+    return render(request,'aicohol.html',{'aicohols':aicohols,'aicohol_posts':aicohol_posts})
 
 # 디테일창 만들기
 def detail_home(request,donkey_id):

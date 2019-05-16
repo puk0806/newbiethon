@@ -3,12 +3,33 @@
 {% block contents %}
  
         
-        {% for donkey in donkeys.all %}
+        {% for donkey in donkey_posts %}
         <div class="container">
             <h1>{{donkey.title}}</h1>
             <p>{{donkey.pub_date}}</p>
             <p>{{donkey.summary}} <a href="{% url 'board:detail_home' donkey.id %}">자세히</a></p>
         </div>
     {%endfor%}          
+
+  
+
+    <div class ="contaiver">
+        {%if donkey_posts.has_previous%}
+        <a href="?donkey_page=1">Frist</a>
+        <a href="?donkey_page={{donkey_posts.previous_page_number}}">Previous</a>
+        {%endif%}
+
+        <span>{{donkey_posts.number}}</span>
+        <span>of</span>
+        <span>{{donkey_posts.paginator.num_pages}}</span>
+
+        {%if donkey_posts.has_next%}
+        <a href="?donkey_page={{donkey_posts.next_page_number}}">Next</a>
+        <a href="?donkey_page={{donkey_posts.paginator.num_pages}}">Last</a>
+        {%endif%}
+      </div>
+
+  </div>
+    
 
 {% endblock %}

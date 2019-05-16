@@ -11,6 +11,12 @@ class Donkey(models.Model):
 
     def get_absolute_url(self):
         return reverse('board:detail_donkey', arg=[self.id])
+        
+    def __str__(self):
+        return self.title
+
+    def summary(self):
+        return self.body[:30]
 
 class Aicohol(models.Model):
     title = models.CharField(max_length=50)
@@ -20,6 +26,12 @@ class Aicohol(models.Model):
 
     def get_absolute_url(self):
         return reverse('board:detail_aicohol', arg=[self.id])
+        
+    def __str__(self):
+        return self.title
+
+    def summary(self):
+        return self.body[:30]
 
 
 class Health(models.Model):

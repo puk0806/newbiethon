@@ -2,11 +2,28 @@
 
 {% block contents %}
  
-          {% for aicohol in aicohols.all %}
+          {% for aicohol in aicohol_posts %}
           <div class="container">
               <h1>{{aicohol.title}}</h1>
               <p>{{aicohol.pub_date}}</p>
               <p>{{aicohol.summary}} <a href="{% url 'board:detail_aicohol' aicohol.id %}">자세히</a></p>
           </div>
       {%endfor%}          
+      
+      <div class ="contaiver">
+        {%if aicohol_posts.has_previous%}
+        <a href="?aicohol_page=1">Frist</a>
+        <a href="?aicohol_page={{aicohol_posts.previous_page_number}}">Previous</a>
+        {%endif%}
+
+        <span>{{aicohol_posts.number}}</span>
+        <span>of</span>
+        <span>{{aicohol_posts.paginator.num_pages}}</span>
+
+        {%if aicohol_posts.has_next%}
+        <a href="?aicohol_page={{aicohol_posts.next_page_number}}">Next</a>
+        <a href="?aicohol_page={{aicohol_posts.paginator.num_pages}}">Last</a>
+        {%endif%}
+      </div>
+      
    {% endblock %}

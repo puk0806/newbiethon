@@ -2,12 +2,30 @@
 
 {% block contents %}
  
-      {% for health in healths.all %}
+      {% for health in health_posts %}
           <div class="container">
               <h1>{{health.title}}</h1>
               <p>{{health.pub_date}}</p>
               <p>{{health.summary}} <a href="{% url 'board:detail_health' health.id %}">자세히</a></p>
           </div>
       {%endfor%}          
+
+      <div class ="contaiver">
+        {%if health_posts.has_previous%}
+        <a href="?health_page=1">Frist</a>
+        <a href="?health_page={{health_posts.previous_page_number}}">Previous</a>
+        {%endif%}
+
+        <span>{{health_posts.number}}</span>
+        <span>of</span>
+        <span>{{health_posts.paginator.num_pages}}</span>
+
+        {%if health_posts.has_next%}
+        <a href="?health_page={{health_posts.next_page_number}}">Next</a>
+        <a href="?health_page={{health_posts.paginator.num_pages}}">Last</a>
+        {%endif%}
+      </div>
+
+  </div>
 
 {% endblock %}
